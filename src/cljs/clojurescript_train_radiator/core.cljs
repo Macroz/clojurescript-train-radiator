@@ -2,12 +2,12 @@
   (:require [reagent.core :as reagent]
             [re-frame.core :as re-frame]
             [clojurescript-train-radiator.events :as events]
-            [clojurescript-train-radiator.views :as views]
-            [clojurescript-train-radiator.config :as config]))
+            [clojurescript-train-radiator.views :as views]))
 
+(def debug? ^boolean goog.DEBUG)
 
 (defn dev-setup []
-  (when config/debug?
+  (when debug?
     (enable-console-print!)
     (println "dev mode")))
 
