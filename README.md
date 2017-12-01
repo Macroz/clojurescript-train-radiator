@@ -33,6 +33,7 @@ Tasks
 
 - make the page prettier
 - make the station configurable
+- poll timetables
 - show only time table rows for this station
 - only show future events
 - collect statistics of late trains
