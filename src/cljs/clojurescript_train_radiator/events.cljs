@@ -1,7 +1,6 @@
 (ns clojurescript-train-radiator.events
   (:require [re-frame.core :as re-frame]
-            [ajax.core :refer [GET]]
-            [clojurescript-train-radiator.db :as db]))
+            [ajax.core :refer [GET]]))
 
 ;;
 ;; Accessing the API
