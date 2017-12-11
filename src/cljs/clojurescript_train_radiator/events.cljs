@@ -1,19 +1,13 @@
 (ns clojurescript-train-radiator.events
   (:require [re-frame.core :as re-frame]
-            [ajax.core :refer [GET]]))
+            [day8.re-frame.http-fx]
+            [ajax.core :as ajax]))
 
 ;;
 ;; Accessing the API
 ;;
 
 (def TRAIN_API "https://rata.digitraffic.fi/api/v1/live-trains")
-
-(defn get-trains [station]
-  (GET TRAIN_API
-       {:params {:station station}
-        :response-format :json
-        :keywords? true
-        :handler #(re-frame/dispatch [:load-trains-response %])}))
 
 (re-frame/reg-event-db
  :initialize-db
@@ -22,11 +16,21 @@
 
 (re-frame/reg-event-fx
  :load-trains
- (fn [cofx _]
-   (get-trains "HKI")
-   {}))
+ (fn [{:keys [db]} _]
+   {:http-xhrio {:method :get
+                 :uri TRAIN_API
+                 :params {:station "HKI"}
+                 :format (ajax/json-request-format)
+                 :response-format (ajax/json-response-format {:keywords? true})
+                 :on-success [:load-trains-response]
+                 :on-failure [:load-trains-failure]}}))
 
-(re-frame/reg-event-fx
+(re-frame/reg-event-db
  :load-trains-response
- (fn [cofx [_ response]]
-   {:db (assoc (:db cofx) :trains (js->clj response))}))
+ (fn [db [_ response]]
+   (assoc db :trains (js->clj response))))
+
+(re-frame/reg-event-db
+ :load-trains-failure
+ (fn [db [_ response]]
+   (assoc db :trains [])))
