@@ -54,10 +54,13 @@
      ^{:key (:trainNumber t)} [train t])])
 
 (defn page []
-  (let [trains (re-frame/subscribe [:trains])]
+  (let [trains (re-frame/subscribe [:trains])
+        loading? (re-frame/subscribe [:loading?])]
     [:div
      [:h1 "Trains"]
-     [render @trains]]))
+     (if @loading?
+       [:p "Loading, please wait..."]
+       [render @trains])]))
 
 (defn main-panel []
   [page])

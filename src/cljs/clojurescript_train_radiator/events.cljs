@@ -17,7 +17,8 @@
 (re-frame/reg-event-fx
  :load-trains
  (fn [{:keys [db]} _]
-   {:http-xhrio {:method :get
+   {:db (assoc db :loading? true)
+    :http-xhrio {:method :get
                  :uri TRAIN_API
                  :params {:station "HKI"}
                  :format (ajax/json-request-format)
@@ -28,9 +29,13 @@
 (re-frame/reg-event-db
  :load-trains-response
  (fn [db [_ response]]
-   (assoc db :trains (js->clj response))))
+   (assoc db
+          :trains (js->clj response)
+          :loading? false)))
 
 (re-frame/reg-event-db
  :load-trains-failure
  (fn [db [_ response]]
-   (assoc db :trains [])))
+   (assoc db
+          :trains []
+          :loading? false)))
