@@ -1,4 +1,7 @@
 h1 { color: #0bae02; }
+.controls {
+  margin-bottom: 1rem;
+}
 .trains > * {
   margin-bottom: 1rem;
 }
