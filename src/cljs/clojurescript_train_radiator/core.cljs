@@ -18,6 +18,6 @@
 
 (defn ^:export init []
   (re-frame/dispatch-sync [:initialize-db])
-  (re-frame/dispatch [:load-trains])
+  (re-frame/dispatch [:load-stations])
   (dev-setup)
   (mount-root))

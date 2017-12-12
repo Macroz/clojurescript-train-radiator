@@ -59,21 +59,26 @@
 
 (defn page []
   (let [station (re-frame/subscribe [:station])
+        stations (re-frame/subscribe [:stations])
         trains (re-frame/subscribe [:trains])
-        loading? (re-frame/subscribe [:loading?])]
+        loading-stations? (re-frame/subscribe [:loading-stations?])
+        loading-trains? (re-frame/subscribe [:loading-trains?])]
     [:div
      [:h1 "Trains"]
-     [ui/auto-complete {:hint-text "Choose station"
-                        :search-text @station
-                        :on-focus #(re-frame/dispatch [:set-station ""])
-                        :on-update-input #(re-frame/dispatch [:set-station (s/upper-case %)])
-                        :on-close #(re-frame/dispatch [:load-trains])
-                        :open-on-focus true
-                        :filter (fn [text key] (not= -1 (.indexOf key text)))
-                        :dataSource (clj->js ["HKI" "TKU" "TPE"])}]
-     (if @loading?
+     (if @loading-stations?
        [:p "Loading, please wait..."]
-       [render @trains])]))
+       [:div
+        [ui/auto-complete {:hint-text "Choose station"
+                           :search-text (:stationComputedName @station)
+                           :on-focus #(re-frame/dispatch [:set-station ""])
+                           :on-new-request #(re-frame/dispatch [:set-station (js->clj % :keywordize-keys true)])
+                           :open-on-focus true
+                           :filter (fn [text key] (s/includes? (s/lower-case key) (s/lower-case text)))
+                           :dataSource @stations
+                           :dataSourceConfig {:text "stationComputedName" :value "stationShortCode"} }]
+        (if @loading-trains?
+          [:p "Loading, please wait..."]
+          [render @trains])])]))
 
 (defn main-panel []
   [ui/mui-theme-provider
