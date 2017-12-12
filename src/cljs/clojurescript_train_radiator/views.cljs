@@ -38,8 +38,8 @@
   [ui/card
    [ui/card-title "Train" (:trainNumber t) " " (:trainType t) " " (:trainCategory t) " " (:commuterLineID t)]
    [ui/card-text
-    [ui/table
-     [ui/table-header
+    [ui/table {:selectable false}
+     [ui/table-header {:display-select-all false}
       [ui/table-header-column "Scheduled"]
       [ui/table-header-column "Actual"]
       [ui/table-header-column "Future?"]
