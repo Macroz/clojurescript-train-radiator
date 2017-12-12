@@ -1,1 +1,4 @@
 h1 { color: #0bae02; }
+.trains > * {
+  margin-bottom: 1rem;
+}

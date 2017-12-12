@@ -14,7 +14,7 @@
 ;;
 
 (defn show-time [t]
-  (localtime/format-local-time t :hour-minute))
+  (localtime/format-local-time t :basic-date-time #_:hour-minute))
 
 (defn in-the-future? [t]
   (time/before? (localtime/local-now) (localtime/to-local-date-time t)))
@@ -40,20 +40,15 @@
      (:stationShortCode row)]))
 
 (defn train [t]
-  [:li
-   (:trainNumber t)
-   " "
-   (:trainType t)
-   " "
-   (:trainCategory t)
-   " "
-   (:commuterLineID t)
-   [:ul
-    (map-indexed (fn [i row] ^{:key i} [timetable row])
-                 (take 5 (:timeTableRows t)))]])
+  [ui/card
+   [ui/card-title (:trainNumber t) " " (:trainType t) " " (:trainCategory t) " " (:commuterLineID t)]
+   [ui/card-text
+    [:ul
+     (map-indexed (fn [i row] ^{:key i} [timetable row])
+                  (take 5 (:timeTableRows t)))]]])
 
 (defn render [trains]
-  [:ul
+  [:div.trains
    (for [t trains]
      ^{:key (:trainNumber t)} [train t])])
 
