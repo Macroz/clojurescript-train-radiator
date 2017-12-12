@@ -7,6 +7,11 @@
    (:loading? db)))
 
 (re-frame/reg-sub
+ :station
+ (fn [db]
+   (:station db)))
+
+(re-frame/reg-sub
  :trains
  (fn [db]
    (:trains db)))

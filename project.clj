@@ -4,6 +4,9 @@
                  [reagent "0.7.0"]
                  [re-frame "0.10.2"]
                  [day8.re-frame/http-fx "0.1.4"]
+                 [cljs-react-material-ui "0.2.48"]
+                 [cljsjs/react "15.6.1-1"]
+                 [cljsjs/react-dom "15.6.1-1"]
                  [cljs-ajax "0.7.3"]
                  [com.andrewmcveigh/cljs-time "0.5.2"]]
 

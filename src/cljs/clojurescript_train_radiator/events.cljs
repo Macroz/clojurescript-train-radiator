@@ -12,7 +12,12 @@
 (re-frame/reg-event-db
  :initialize-db
  (fn  [_ _]
-   {}))
+   {:station ""}))
+
+(re-frame/reg-event-db
+ :set-station
+ (fn [db [_ station]]
+   (assoc db :station station)))
 
 (re-frame/reg-event-fx
  :load-trains
@@ -20,7 +25,7 @@
    {:db (assoc db :loading? true)
     :http-xhrio {:method :get
                  :uri TRAIN_API
-                 :params {:station "HKI"}
+                 :params {:station (:station db)}
                  :format (ajax/json-request-format)
                  :response-format (ajax/json-response-format {:keywords? true})
                  :on-success [:load-trains-response]
