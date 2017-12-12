@@ -54,6 +54,16 @@
    (for [t trains]
      ^{:key (:trainNumber t)} [train t])])
 
+(defn station-selector [current-station stations]
+  [ui/auto-complete {:hint-text "Choose station"
+                     :search-text (:stationComputedName current-station)
+                     :on-focus #(re-frame/dispatch [:set-station nil])
+                     :on-new-request #(re-frame/dispatch [:set-station (js->clj % :keywordize-keys true)])
+                     :open-on-focus true
+                     :filter (fn [text key] (s/includes? (s/lower-case key) (s/lower-case text)))
+                     :dataSource stations
+                     :dataSourceConfig {:text "stationComputedName" :value "stationShortCode"} }])
+
 (defn page []
   (let [station (re-frame/subscribe [:station])
         stations (re-frame/subscribe [:stations])
@@ -66,14 +76,7 @@
        [:p "Loading, please wait..."]
        [:div
         [:div.controls
-         [ui/auto-complete {:hint-text "Choose station"
-                            :search-text (:stationComputedName @station)
-                            :on-focus #(re-frame/dispatch [:set-station ""])
-                            :on-new-request #(re-frame/dispatch [:set-station (js->clj % :keywordize-keys true)])
-                            :open-on-focus true
-                            :filter (fn [text key] (s/includes? (s/lower-case key) (s/lower-case text)))
-                            :dataSource @stations
-                            :dataSourceConfig {:text "stationComputedName" :value "stationShortCode"} }]]
+         [station-selector @station @stations]]
         (if @loading-trains?
           [:p "Loading, please wait..."]
           [render @trains])])]))
