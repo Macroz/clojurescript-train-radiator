@@ -17,7 +17,10 @@ Project structure
 =================
 
 - `project.clj`: the configuration file for Leiningen
-- `src/handler.clj`: the code is here
+- `src/cljs/clojurescript_train_radiator/`: the code is here
+  - `events.cljs`
+  - `subs.cljs`
+  - `views.cljs`
 - `resources/public/style.css`: the CSS style file
 
 Useful documentation
