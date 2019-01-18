@@ -22,7 +22,7 @@
                    [figwheel-sidecar "0.5.18"]
                    [com.cemerick/piggieback "0.2.2"]]
 
-   :plugins      [[lein-figwheel "0.5.13"]]}}
+   :plugins      [[lein-figwheel "0.5.18"]]}}
 
 :cljsbuild
 {:builds
