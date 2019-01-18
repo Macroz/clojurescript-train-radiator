@@ -104,7 +104,7 @@
 (defn page []
   (let [trains (re-frame/subscribe [:trains])]
     [:div
-     [:h1 "Trains trains trains"]
+     [:h1 "Trains"]
      [render @trains]]))
 
 (defn main-panel []
