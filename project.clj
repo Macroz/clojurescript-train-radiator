@@ -1,9 +1,9 @@
 (defproject clojurescript-train-radiator "0.1.0-SNAPSHOT"
-  :dependencies [[org.clojure/clojure "1.8.0"]
-                 [org.clojure/clojurescript "1.9.908"]
-                 [reagent "0.7.0"]
-                 [re-frame "0.10.2"]
-                 [cljs-ajax "0.7.3"]
+  :dependencies [[org.clojure/clojure "1.10.0"]
+                 [org.clojure/clojurescript "1.10.439"]
+                 [reagent "0.8.1"]
+                 [re-frame "0.10.6"]
+                 [cljs-ajax "0.8.0"]
                  [com.andrewmcveigh/cljs-time "0.5.2"]]
 
   :plugins [[lein-cljsbuild "1.1.5"]]
@@ -18,9 +18,9 @@
 
   :profiles
   {:dev
-   {:dependencies [[binaryage/devtools "0.9.4"]
-                   [figwheel-sidecar "0.5.13"]
-                   [com.cemerick/piggieback "0.2.1"]]
+   {:dependencies [[binaryage/devtools "0.9.10"]
+                   [figwheel-sidecar "0.5.18"]
+                   [com.cemerick/piggieback "0.2.2"]]
 
    :plugins      [[lein-figwheel "0.5.13"]]}}
 
