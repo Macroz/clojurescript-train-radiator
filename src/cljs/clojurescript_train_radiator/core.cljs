@@ -36,10 +36,10 @@
    (get-trains "HKI")
    {}))
 
-(re-frame/reg-event-fx
+(re-frame/reg-event-db
  :load-trains-response
- (fn [cofx [_ response]]
-   {:db (assoc (:db cofx) :trains (js->clj response))}))
+ (fn [db [_ response]]
+   (assoc db :trains (js->clj response))))
 
 
 ;;
@@ -104,7 +104,7 @@
 (defn page []
   (let [trains (re-frame/subscribe [:trains])]
     [:div
-     [:h1 "Trains"]
+     [:h1 "Trains trains trains"]
      [render @trains]]))
 
 (defn main-panel []
