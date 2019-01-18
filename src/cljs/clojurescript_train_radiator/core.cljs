@@ -30,11 +30,15 @@
  (fn  [_ _]
    {}))
 
+(re-frame/reg-fx
+ :load-trains-fx
+ (fn [station]
+   (get-trains station)))
+
 (re-frame/reg-event-fx
  :load-trains
  (fn [cofx _]
-   (get-trains "HKI")
-   {}))
+   {:load-trains-fx ["HKI"]}))
 
 (re-frame/reg-event-db
  :load-trains-response
