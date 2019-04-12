@@ -4,17 +4,22 @@
                  [reagent "0.8.1"]
                  [re-frame "0.10.6"]
                  [cljs-ajax "0.8.0"]
-                 [com.andrewmcveigh/cljs-time "0.5.2"]]
+                 [compojure "1.5.0"]
+                 [com.andrewmcveigh/cljs-time "0.5.2"]
+                 [yogthos/config "0.8"]
+                 [ring "1.4.0"]]
 
   :plugins [[lein-cljsbuild "1.1.5"]]
 
-  :min-lein-version "2.5.3"
+  :min-lein-version "2.9.1"
 
   :source-paths ["src/clj"]
 
   :clean-targets ^{:protect false} ["resources/public/js/compiled" "target"]
 
   :figwheel {:css-dirs ["resources/public/css"]}
+
+  :main clojurescript-train-radiator.server
 
   :profiles
   {:dev
