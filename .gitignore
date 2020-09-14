@@ -1,10 +1,10 @@
 /*.log
 /target
 /*-init.clj
-/resources/public/js/compiled
 out
 *~
 .lein-repl-history
 .nrepl-port
 node_modules
 /.lein-failures
+/.rebel_readline_history

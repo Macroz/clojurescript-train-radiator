@@ -14,8 +14,9 @@
   :min-lein-version "2.9.1"
 
   :source-paths ["src/clj"]
-
-  :clean-targets ^{:protect false} ["resources/public/js/compiled" "target"]
+  :resource-paths ["resources" "target/cljsbuild"]
+  :target-path "target/%s/"
+  :clean-targets ["target"]
 
   :figwheel {:css-dirs ["resources/public/css"]}
 
@@ -25,8 +26,8 @@
   {:dev
    {:dependencies [[binaryage/devtools "1.0.2"]
                    [figwheel-sidecar "0.5.20"]
-                   [com.cemerick/piggieback "0.2.2"]]
-    :plugins [[lein-figwheel "0.5.18"]
+                   [cider/piggieback "0.5.1"]]
+    :plugins [[lein-figwheel "0.5.20"]
               [lein-ancient "0.6.15"]]}}
 
   :cljsbuild
@@ -35,17 +36,9 @@
      :source-paths ["src/cljs"]
      :figwheel {:on-jsload "clojurescript-train-radiator.core/mount-root"}
      :compiler {:main clojurescript-train-radiator.core
-                :output-to "resources/public/js/compiled/app.js"
-                :output-dir "resources/public/js/compiled/out"
-                :asset-path "js/compiled/out"
+                :output-to "target/cljsbuild/public/js/app.js"
+                :output-dir "target/cljsbuild/public/js/out"
+                :asset-path "js/out"
                 :source-map-timestamp true
                 :preloads [devtools.preload]
-                :external-config {:devtools/config {:features-to-install :all}}}}
-
-    {:id "min"
-     :source-paths ["src/cljs"]
-     :compiler {:main clojurescript-train-radiator.core
-                :output-to "resources/public/js/compiled/app.js"
-                :optimizations :advanced
-                :closure-defines {goog.DEBUG false}
-                :pretty-print false}}]})
+                :external-config {:devtools/config {:features-to-install :all}}}}]})
