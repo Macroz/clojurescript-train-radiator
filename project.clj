@@ -26,30 +26,25 @@
    {:dependencies [[binaryage/devtools "0.9.10"]
                    [figwheel-sidecar "0.5.18"]
                    [com.cemerick/piggieback "0.2.2"]]
+    :plugins [[lein-figwheel "0.5.18"]]}}
 
-   :plugins      [[lein-figwheel "0.5.18"]]}}
+  :cljsbuild
+  {:builds
+   [{:id "dev"
+     :source-paths ["src/cljs"]
+     :figwheel {:on-jsload "clojurescript-train-radiator.core/mount-root"}
+     :compiler {:main clojurescript-train-radiator.core
+                :output-to "resources/public/js/compiled/app.js"
+                :output-dir "resources/public/js/compiled/out"
+                :asset-path "js/compiled/out"
+                :source-map-timestamp true
+                :preloads [devtools.preload]
+                :external-config {:devtools/config {:features-to-install :all}}}}
 
-:cljsbuild
-{:builds
- [{:id           "dev"
-   :source-paths ["src/cljs"]
-   :figwheel     {:on-jsload "clojurescript-train-radiator.core/mount-root"}
-   :compiler     {:main                 clojurescript-train-radiator.core
-                  :output-to            "resources/public/js/compiled/app.js"
-                  :output-dir           "resources/public/js/compiled/out"
-                  :asset-path           "js/compiled/out"
-                  :source-map-timestamp true
-                  :preloads             [devtools.preload]
-                  :external-config      {:devtools/config {:features-to-install :all}}
-                  }}
-
-  {:id           "min"
-   :source-paths ["src/cljs"]
-   :compiler     {:main            clojurescript-train-radiator.core
-                  :output-to       "resources/public/js/compiled/app.js"
-                  :optimizations   :advanced
-                  :closure-defines {goog.DEBUG false}
-                  :pretty-print    false}}
-
-
-  ]})
+    {:id "min"
+     :source-paths ["src/cljs"]
+     :compiler {:main clojurescript-train-radiator.core
+                :output-to "resources/public/js/compiled/app.js"
+                :optimizations :advanced
+                :closure-defines {goog.DEBUG false}
+                :pretty-print false}}]})
