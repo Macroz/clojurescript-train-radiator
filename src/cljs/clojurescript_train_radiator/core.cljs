@@ -101,6 +101,7 @@
 (defn page []
   (let [trains (re-frame/subscribe [:trains])]
     [:div
+     #_[:pre (with-out-str (cljs.pprint/pprint @trains))]
      [:h1 "Trains"]
      [render @trains]]))
 
