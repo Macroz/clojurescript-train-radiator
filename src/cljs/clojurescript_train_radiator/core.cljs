@@ -1,17 +1,9 @@
 (ns clojurescript-train-radiator.core
-  (:require [reagent.core :as reagent]
-            [reagent.dom :as reagent-dom]
+  (:require [reagent.dom :as reagent-dom]
             [re-frame.core :as re-frame]
             [ajax.core :refer [GET]]
             [cljs-time.core :as time]
             [cljs-time.local :as localtime]))
-
-(def debug? ^boolean goog.DEBUG)
-
-(defn dev-setup []
-  (when debug?
-    (enable-console-print!)
-    (println "dev mode")))
 
 ;;
 ;; Accessing the API
@@ -38,7 +30,7 @@
 
 (re-frame/reg-event-fx
  :load-trains
- (fn [cofx _]
+ (fn [_cofx _]
    {:load-trains-fx ["HKI"]}))
 
 (re-frame/reg-event-db
@@ -115,12 +107,13 @@
 (defn main-panel []
   [page])
 
-(defn mount-root []  (re-frame/clear-subscription-cache!)
+(defn mount-root []
+  (re-frame/clear-subscription-cache!)
   (reagent-dom/render [main-panel]
                       (.getElementById js/document "app")))
 
 (defn ^:export init []
+  (enable-console-print!)
   (re-frame/dispatch-sync [:initialize-db])
   (re-frame/dispatch [:load-trains])
-  (dev-setup)
   (mount-root))
