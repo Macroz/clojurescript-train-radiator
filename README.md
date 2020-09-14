@@ -28,17 +28,23 @@ Useful documentation
 
 - [ClojureDocs](https://clojuredocs.org) – the Clojure standard library documentation, searchable
 - [re-frame](https://github.com/Day8/re-frame/) – the  web framework used in this project that does what React and Redux do
-- [Hiccup wiki](https://github.com/weavejester/hiccup/wiki) - how to generate HTML
-- [cljs-time](https://github.com/andrewmcveigh/cljs-time) - how to handle time
+- [Hiccup wiki](https://github.com/weavejester/hiccup/wiki) – how to generate HTML
+- [cljs-time](https://github.com/andrewmcveigh/cljs-time) – how to handle time
 
 Tasks
 =====
 
-- make the page prettier
-- make the station configurable
-- poll timetables
+- add a loading spinner
+- make the page prettier (`resources/public/css/style.css`)
+- make the station configurable (dropdown to app-db or path-parameter)
 - show only time table rows for this station
-- only show future events
+- poll timetables (js/setInterval, dispatch event)
+- only show future events (cljs-time, `in-the-future?`)
+- fetch trains in own API backend (compojure, reitit etc.)
+- use Garden for styling instead of plain CSS
+- try out re-frame-10x or re-frisk
+- localize the project (use tempura)
+- browser tests (etaoin)
 - collect statistics of late trains
 
 Interactive development
@@ -51,13 +57,8 @@ server.
 Here's how:
 
 1. Start an interactive clojure environment, for example:
-   - run `lein repl` in a terminal
+   - run `lein repl` in a terminal for plain Clojure or `lein figwheel dev` to run Figwheel `dev` profile
    - use `M-x cider-jack-in-clojurescript` in Emacs (after installing [cider](https://github.com/clojure-emacs/cider))
    - install a Clojure IDE like [Cursive for IntelliJ](https://cursive-ide.com/userguide/)
 2. Try out things and edit code
 3. Code is automatically refreshed thanks to Figwheel
-
-Where to go from here?
-======================
-
-TODO
