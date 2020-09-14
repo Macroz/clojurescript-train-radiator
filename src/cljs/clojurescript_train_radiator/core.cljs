@@ -1,5 +1,6 @@
 (ns clojurescript-train-radiator.core
   (:require [reagent.core :as reagent]
+            [reagent.dom :as reagent-dom]
             [re-frame.core :as re-frame]
             [ajax.core :refer [GET]]
             [cljs-time.core :as time]
@@ -114,10 +115,9 @@
 (defn main-panel []
   [page])
 
-(defn mount-root []
-  (re-frame/clear-subscription-cache!)
-  (reagent/render [main-panel]
-                  (.getElementById js/document "app")))
+(defn mount-root []  (re-frame/clear-subscription-cache!)
+  (reagent-dom/render [main-panel]
+                      (.getElementById js/document "app")))
 
 (defn ^:export init []
   (re-frame/dispatch-sync [:initialize-db])
