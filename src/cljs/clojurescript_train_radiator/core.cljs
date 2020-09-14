@@ -6,7 +6,7 @@
             [cljs-time.local :as localtime]))
 
 ;;
-;; Accessing the API
+;; Accessing the trains API
 ;;
 
 (def TRAIN_API "https://rata.digitraffic.fi/api/v1/live-trains")
@@ -17,6 +17,11 @@
      :response-format :json
      :keywords? true
      :handler #(re-frame/dispatch [:load-trains-response %])}))
+
+;;
+;; State management (app db)
+;;
+
 
 (re-frame/reg-event-db
  :initialize-db
@@ -37,7 +42,6 @@
  :load-trains-response
  (fn [db [_ response]]
    (assoc db :trains (js->clj response))))
-
 
 ;;
 ;; Subscriptions
@@ -61,7 +65,7 @@
 
 
 ;;
-;; Generating HTML
+;; Views
 ;;
 
 (defn timetable [row]
@@ -93,7 +97,7 @@
     (map-indexed (fn [i row] ^{:key i} [timetable row])
                  (take 5 (:timeTableRows t)))]])
 
-(defn render [trains]
+(defn trains-list [trains]
   [:ul
    (for [t trains]
      ^{:key (:trainNumber t)} [train t])])
@@ -103,7 +107,7 @@
     [:div
      #_[:pre (with-out-str (cljs.pprint/pprint @trains))]
      [:h1 "Trains"]
-     [render @trains]]))
+     [trains-list @trains]]))
 
 (defn main-panel []
   [page])
