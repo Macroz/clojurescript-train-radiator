@@ -21,10 +21,10 @@
 
 (defn get-trains [station]
   (GET TRAIN_API
-       {:params {:station station}
-        :response-format :json
-        :keywords? true
-        :handler #(re-frame/dispatch [:load-trains-response %])}))
+    {:params {:station station}
+     :response-format :json
+     :keywords? true
+     :handler #(re-frame/dispatch [:load-trains-response %])}))
 
 (re-frame/reg-event-db
  :initialize-db
