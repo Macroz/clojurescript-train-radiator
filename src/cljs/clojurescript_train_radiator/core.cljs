@@ -9,10 +9,10 @@
 ;; Accessing the trains API
 ;;
 
-(def TRAIN_API "https://rata.digitraffic.fi/api/v1/live-trains")
+(def +train-api-url+ "https://rata.digitraffic.fi/api/v1/live-trains")
 
 (defn get-trains [station]
-  (GET TRAIN_API
+  (GET +train-api-url+
     {:params {:station station}
      :response-format :json
      :keywords? true
