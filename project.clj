@@ -9,7 +9,7 @@
                  [yogthos/config "1.1.7"]
                  [ring "1.8.1"]]
 
-  :plugins [[lein-cljsbuild "1.1.5"]]
+  :plugins [[lein-cljsbuild "1.1.7"]]
 
   :min-lein-version "2.9.1"
 
